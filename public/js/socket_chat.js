@@ -10,7 +10,8 @@ var usuario = {
 socket.on('connect', () => {
     console.log('Conectado al servidor');
     socket.emit('entrarChat', usuario, (rs) => {
-        console.log('Usuarios conectados', rs);
+        // console.log('Usuarios conectados', rs);
+        rendedirzarUsuarios(rs);
     });
 });
 
@@ -19,12 +20,14 @@ socket.on('disconnect', () => {
 });
 
 socket.on('crearMensaje', (rs) => {
-    console.log('Servidor:', rs);
+    // console.log('Servidor:', rs);
+    renderizarMensajes(rs, false);
+    scrollBottom();
 });
 
 // Cuando un usuario entra o sale del chat
 socket.on('listaPersonas', (rs) => {
-    console.log(rs);
+    rendedirzarUsuarios(rs);
 });
 
 socket.on('mensajePrivado', (mensaje) => {
